@@ -2,3 +2,11 @@
 ieeg-fmri-dataset-quickstart-main/requirements
 ieeg-fmri-dataset-quickstart-main/ieeg_quickstart/python/visualize_coverage.ipynb
 data/
+ieeg-fmri-dataset-quickstart-main/README.md
+.ipynb_checkpoints/preprocess_iemu-checkpoint.ipynb
+.ipynb_checkpoints/visualize_coverage-checkpoint.ipynb
+ieeg-fmri-dataset-quickstart-main/ieeg_quickstart/python/.ipynb_checkpoints/preprocess_iemu-checkpoint.ipynb
+ieeg-fmri-dataset-quickstart-main/ieeg_quickstart/python/__init__.py
+ieeg-fmri-dataset-quickstart-main/ieeg_quickstart/python/preprocess_iemu.ipynb
+ieeg-fmri-dataset-quickstart-main/ieeg_quickstart/python/.ipynb_checkpoints/visualize_coverage-checkpoint.ipynb
+ieeg-fmri-dataset-quickstart-main/ieeg_quickstart/python/utils.py
