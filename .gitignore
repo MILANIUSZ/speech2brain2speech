@@ -1,3 +1,4 @@
 
 ieeg-fmri-dataset-quickstart-main/requirements
 ieeg-fmri-dataset-quickstart-main/ieeg_quickstart/python/visualize_coverage.ipynb
+data-main/folder_to_ignore/
