@@ -7,7 +7,8 @@ Thesis work
 The aim of this work is to reconstruct the speech that was heard by an individual in a real world scenario, with the use of intracarnial data and deep learning methods.
 
 
-*Dataset:*  https://www.nature.com/articles/s41597-022-01173-0
+*Dataset:*  https://www.nature.com/articles/s41597-022-01173-0 //
+
 download: https://openneuro.org/datasets/ds003688/versions/1.0.7/download
 
 
