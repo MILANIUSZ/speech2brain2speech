@@ -8,7 +8,7 @@ The aim of this work is to reconstruct the speech that was heard by an individua
 
 
 *Dataset:*  https://www.nature.com/articles/s41597-022-01173-0  
--download: https://openneuro.org/datasets/ds003688/versions/1.0.7/download  
+download: https://openneuro.org/datasets/ds003688/versions/1.0.7/download  
 
 
 *Environment:*  Docker - public image : thegeeksdiary/tensorflow-jupyter-gpu
