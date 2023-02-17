@@ -66,6 +66,11 @@ def extractMelSpecs(audio, sr, windowLength=0.05, frameshift=0.01):
 #Extract spectrogram
 melSpec = extractMelSpecs(scaled,audio_sr,windowLength=winL,frameshift=frameshift)
 
+# +
+#feat
+#import features (gamma
+# -
+
 #Align to EEG features
        # melSpec = melSpec[modelOrder*stepSize:melSpec.shape[0]-modelOrder*stepSize,:]
         #adjust length (differences might occur due to rounding in the number of windows)
@@ -78,7 +83,4 @@ melSpec = extractMelSpecs(scaled,audio_sr,windowLength=winL,frameshift=frameshif
         #feature_names = nameVector(channels[:,None], modelOrder=modelOrder)
 
         #Save everything
-        #np.save(os.path.join(path_output,f'{participant}_feat.npy'), feat)
-       # np.save(os.path.join(path_output,f'{participant}_procWords.npy'), words)
-        #np.save(os.path.join(path_output,f'{participant}_spec.npy'), melSpec)
-        #np.save(os.path.join(path_output,f'{participant}_feat_names.npy'), feature_names)
+      
