@@ -51,7 +51,10 @@ def extractMelSpecs(audio, sr, windowLength=0.05, frameshift=0.01):
  #audio
         filename = 'data/stimuli/6min.wav'
         audio, sr = sf.read(filename, dtype='float32')
-
+        #cant find SR...
+        audio_sr = 48000
+        original_audio_sr = 48000
+        
         #Process Audio
         target_SR = 16000
         audio = scipy.signal.decimate(audio,int(audio_sr / target_SR))
