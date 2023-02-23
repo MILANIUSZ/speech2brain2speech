@@ -18,7 +18,6 @@ from pynwb import NWBHDF5IO
 import MelFilterBank as mel
 
 
-# +
 def extractMelSpecs(audio, sr, windowLength=0.05, frameshift=0.01):
     """
     Extract logarithmic mel-scaled spectrogram, traditionally used to compress audio spectrograms
@@ -64,9 +63,9 @@ def extractMelSpecs(audio, sr, windowLength=0.05, frameshift=0.01):
 
 # -
 
-filename = 'data/stimuli/6min.wav'
-audio, srb = sf.read(filename, dtype='float32')
-       
+'''filename = 'data/stimuli/6min.wav'
+audio, srb = sf.read(filename, dtype='float32')'''
+
 
 audio.shape
 
@@ -102,15 +101,10 @@ melSpec = extractMelSpecs(audio_resampled, 2048, windowLength=winL, frameshift=f
 #import eeg (gamma from preprocessing)
 gamma = np.load("gamma.npy")
 
-gamma.shape
-
-
 if melSpec.shape[0] != gamma.shape[0]:
     n_frames = min(melSpec.shape[0], gamma.shape[0])
     melSpec = melSpec[:n_frames, :]
     gamma = gamma[:n_frames, :]
-
-gamma.shape
 
 import matplotlib.pyplot as plt
 plt.plot(gamma[:,0])
@@ -120,39 +114,55 @@ plt.plot(melSpec[:,0])
 plt.show()
 
 # +
-import matplotlib.pyplot as plt
+###resample the eeg isntead
+# -
 
-fig, ax = plt.subplots(2, 1, sharex=True, figsize=(12, 6))
+gamma.shape
 
-# Plot EEG
-ax[0].plot(gamma)
 
-# Plot spectrogram
-im = ax[1].imshow(melSpec.T, aspect='auto', origin='lower')
-
-# Set axis labels and titles
-ax[0].set_ylabel('Amplitude')
-ax[1].set_ylabel('Frequency')
-ax[1].set_xlabel('Time')
-ax[0].set_title('EEG')
-ax[1].set_title('Spectrogram')
-
-# Add colorbar for spectrogram
-cbar = fig.colorbar(im, ax=ax[1])
-cbar.ax.set_ylabel('Magnitude')
-
-plt.show()
-
+winL = 0.05
+frameshift = 0.01
+melSpec48 = extractMelSpecs(audio, 48000, windowLength=winL, frameshift=frameshift)
 
 # +
-start_time = 0 # set start time in seconds
-end_time = 2 # set end time in seconds
+import resampy
+original_sf = 2048.0
+target_sf = 48000.0
 
-# plot EEG and spectrogram for the specified time window
-fig, axs = plt.subplots(2, 1, figsize=(20,10))
-axs[0].plot(times[(times>=start_time) & (times<end_time)], gamma[(times>=start_time) & (times<end_time), :])
+# Resample the EEG data using resampy
+gamma_resampled = resampy.resample(gamma, original_sf, target_sf, axis=0)
+# -
+
+gamma_resampled.shape
+
+if melSpec48.shape[0] != gamma_resampled.shape[0]:
+    n_frames = min(melSpec48.shape[0], gamma_resampled.shape[0])
+    melSpec48 = melSpec48[:n_frames, :]
+    gamma_resampled = gamma_resampled[:n_frames, :]
+
+gamma_resampled.shape
+
+melSpec48.shape
+
+# +
+import matplotlib.pyplot as plt
+
+# Define time window to plot
+start_time = 0  # start time in seconds
+end_time = 1  # end time in seconds
+
+# Plot EEG and mel spectrogram for the specified time window
+fig, axs = plt.subplots(2, 1, figsize=(20, 10))
+axs[0].plot(gamma_resampled[int(start_time*48000):int(end_time*48000), :])
 axs[0].set_title('EEG')
-axs[1].imshow(melSpec[int(start_time*sr/stepSize):int(end_time*sr/stepSize), :].T, origin='lower', aspect='auto', cmap='jet', interpolation='none')
+axs[1].imshow(melSpec48[int(start_time*48000*0.01):int(end_time*48000*0.01), :].T, origin='lower', aspect='auto', cmap='jet', interpolation='none')
 axs[1].set_title('Mel Spectrogram')
 plt.show()
+
+# -
+
+
+
+
+
 
