@@ -63,8 +63,8 @@ def extractMelSpecs(audio, sr, windowLength=0.05, frameshift=0.01):
 
 # -
 
-'''filename = 'data/stimuli/6min.wav'
-audio, srb = sf.read(filename, dtype='float32')'''
+filename = 'data/stimuli/6min.wav'
+audio, srb = sf.read(filename, dtype='float32')
 
 
 audio.shape
@@ -149,7 +149,7 @@ import matplotlib.pyplot as plt
 
 # Define time window to plot
 start_time = 0  # start time in seconds
-end_time = 1  # end time in seconds
+end_time = 0.05  # end time in seconds
 
 # Plot EEG and mel spectrogram for the specified time window
 fig, axs = plt.subplots(2, 1, figsize=(20, 10))
@@ -159,6 +159,89 @@ axs[1].imshow(melSpec48[int(start_time*48000*0.01):int(end_time*48000*0.01), :].
 axs[1].set_title('Mel Spectrogram')
 plt.show()
 
+# +
+from scipy.signal import correlate
+
+# Compute the cross-correlation
+corr = correlate(melSpec48[:, 0], gamma_resampled[:, 0], mode='full')
+
+# Find the lag at which the maximum correlation occurs
+lag = corr.argmax() - (corr.size - 1) / 2
+
+print(f"Lag: {lag}")
+
+
+# +
+lags = []
+for i in range(melSpec48.shape[1]):
+    corr = correlate(melSpec48[:, i], gamma_resampled[:, i], mode='full')
+    lag = corr.argmax() - (corr.size - 1) / 2
+    lags.append(lag)
+
+print(lags)
+
+# -
+
+corr = np.correlate(melSpec48[:, 0], gamma_resampled[:, 0], mode='full')
+lag = np.argmax(corr) - len(melSpec48[:, 0]) + 1
+
+
+
+lag_sec = lag / 48000.0
+
+
+# +
+from numpy import roll
+
+# calculate the shift amount based on the lag
+shift_amount = int(-lag)
+
+# roll the gamma_resampled array based on the shift amount
+gamma_shifted = roll(gamma_resampled, shift_amount, axis=0)
+
+
+# +
+import matplotlib.pyplot as plt
+from scipy.signal import correlate
+
+# compute cross-correlation function
+corr = correlate(melSpec48[:, 0], gamma_shifted[:, 0], mode='full')
+
+# plot cross-correlation function
+fig, ax = plt.subplots()
+ax.plot(corr)
+ax.set_title('Cross-Correlation Function')
+ax.set_xlabel('Lag')
+ax.set_ylabel('Correlation')
+plt.show()
+
+
+# +
+import matplotlib.pyplot as plt
+
+# plot the shifted gamma and mel spectrogram
+fig, axs = plt.subplots(2, 1, figsize=(10, 10))
+axs[0].imshow(gamma_shifted.T, aspect='auto', origin='lower', cmap='jet')
+axs[0].set_title('Gamma')
+axs[1].imshow(melSpec48.T, aspect='auto', origin='lower', cmap='jet')
+axs[1].set_title('Mel Spectrogram')
+
+plt.show()
+
+# +
+import matplotlib.pyplot as plt
+from scipy.signal import correlate
+
+# compute cross-correlation function
+corr = correlate(melSpec48[:, 0], gamma_resampled[:, 0], mode='full')
+
+# plot cross-correlation function
+fig, ax = plt.subplots()
+ax.plot(corr)
+ax.set_title('Cross-Correlation Function')
+ax.set_xlabel('Lag')
+ax.set_ylabel('Correlation')
+plt.show()
 # -
 
 
