@@ -135,6 +135,30 @@ gamma_resampled = resampy.resample(gamma, original_sf, target_sf, axis=0)
 
 gamma_resampled.shape
 
+melSpec48.shape
+
+# +
+from scipy.signal import correlate
+
+# Calculate cross-correlation
+cross_corr = correlate(gamma_resampled, melSpec48, mode='full')
+
+# Find the index of the maximum cross-correlation value
+max_idx = np.argmax(cross_corr)
+
+# Calculate the number of samples to shift
+n_shift = max_idx - len(melSpec48) + 1
+
+# Shift gamma_resampled
+gamma_shifted = np.roll(gamma_resampled, -n_shift)
+# -
+
+gamma_shifted.shape
+
+np.save('gamma_shifted_nocut.npy', gamma_shifted)
+
+np.save('melSpec48_nocut.npy', melSpec48)
+
 if melSpec48.shape[0] != gamma_resampled.shape[0]:
     n_frames = min(melSpec48.shape[0], gamma_resampled.shape[0])
     melSpec48 = melSpec48[:n_frames, :]
@@ -218,18 +242,6 @@ plt.show()
 
 # +
 import matplotlib.pyplot as plt
-
-# plot the shifted gamma and mel spectrogram
-fig, axs = plt.subplots(2, 1, figsize=(10, 10))
-axs[0].imshow(gamma_shifted.T, aspect='auto', origin='lower', cmap='jet')
-axs[0].set_title('Gamma')
-axs[1].imshow(melSpec48.T, aspect='auto', origin='lower', cmap='jet')
-axs[1].set_title('Mel Spectrogram')
-
-plt.show()
-
-# +
-import matplotlib.pyplot as plt
 from scipy.signal import correlate
 
 # compute cross-correlation function
@@ -242,10 +254,28 @@ ax.set_title('Cross-Correlation Function')
 ax.set_xlabel('Lag')
 ax.set_ylabel('Correlation')
 plt.show()
+
+# +
+import matplotlib.pyplot as plt
+
+# Define time window to plot
+start_time = 0  # start time in seconds
+end_time = 2  # end time in seconds
+
+# Plot EEG and mel spectrogram for the specified time window
+fig, axs = plt.subplots(2, 1, figsize=(20, 10))
+axs[0].plot(gamma_shifted[int(start_time*48000):int(end_time*48000), :])
+axs[0].set_title('EEG')
+axs[1].imshow(melSpec48[int(start_time*48000*0.01):int(end_time*48000*0.01), :].T, origin='lower', aspect='auto', cmap='jet', interpolation='none')
+axs[1].set_title('Mel Spectrogram')
+plt.show()
+
 # -
 
 
 
+np.save('gamma_shifted_cut.npy', gamma_shifted)
 
+np.save('melSpec48.npy', melSpec48)
 
 
