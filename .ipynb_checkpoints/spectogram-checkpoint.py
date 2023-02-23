@@ -55,45 +55,39 @@ def extractMelSpecs(audio, sr, windowLength=0.05, frameshift=0.01):
     return spectrogram
 
 
-
-# +
-#audio sampling rate +esampling the audio to a standard sampling rate of 22050 Hz and converting the audio data to mono etc
-audio_path = 'data/stimuli/6min.wav'
-y, sra = librosa.load(audio_path)
-
-
-
-# + active=""
-# librosa.get_samplerate(audio_path)
 # -
+
+#audio
+audio_path = 'data/stimuli/6min.wav'
+ogsr = librosa.get_samplerate(audio_path)
+y, sr = librosa.load(audio_path)
+
+
+y
+
+
 
 filename = 'data/stimuli/6min.wav'
-audio, srb = sf.read(filename, dtype='float32')
+audio, sr = sf.read(filename, dtype='float32')
        
 
-# define the output directory path
-path_output = r'./features'
+audio
 
-# +
-audio_sr = 48000
-original_audio_sr = 48000
+
+
+ #cant find SR...
+        audio_sr = 48000
+        original_audio_sr = 48000
         
-#Process Audio
-target_SR = 16000
-audio = scipy.signal.decimate(audio,int(audio_sr / target_SR))
-audio_sr = target_SR
-scaled = np.int16(audio/np.max(np.abs(audio)) * 32767)
-os.makedirs(os.path.join(path_output), exist_ok=True)
+        #Process Audio
+        target_SR = 16000
+        audio = scipy.signal.decimate(audio,int(audio_sr / target_SR))
+        audio_sr = target_SR
+        scaled = np.int16(audio/np.max(np.abs(audio)) * 32767)
+        os.makedirs(os.path.join(path_output), exist_ok=True)
+        scipy.io.wavfile.write(os.path.join(path_output,f'{participant}_orig_audio.wav'),audio_sr,scaled) 
 
-# -
-
-# write the rescaled audio to a WAV file in the output directory
-file_name = 'rescaled.wav'
-scipy.io.wavfile.write(os.path.join(path_output, file_name), audio_sr, scaled)
-
-#melspectrogram
-winL = 0.05
-frameshift = 0.01
+#Extract spectrogram
 melSpec = extractMelSpecs(scaled,audio_sr,windowLength=winL,frameshift=frameshift)
 
 # +
