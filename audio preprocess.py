@@ -54,14 +54,7 @@ def extractMelSpecs(audio, sr, windowLength=0.05, frameshift=0.01):
     return spectrogram
 
 
-
-# +
-#audio sampling rate +esampling the audio to a standard sampling rate of 22050 Hz and converting the audio data to mono etc
-#audio_path = 'data/stimuli/6min.wav'
-#y, sra = librosa.load(audio_path)
-
-
-# -
+# ## **Load audio**
 
 filename = 'data/stimuli/6min.wav'
 audio, srb = sf.read(filename, dtype='float32')
@@ -86,6 +79,8 @@ os.makedirs(os.path.join(path_output), exist_ok=True)
 
 # -
 
+# ## **Load audio**
+
 #othermethods
 from scipy import signal
 audio, sr = librosa.load('data/stimuli/6min.wav', sr=48000)
@@ -94,27 +89,30 @@ audio_resampled = signal.resample(audio, int(len(audio) / sr * 2048))
 file_name = 'resampled.wav'
 scipy.io.wavfile.write(os.path.join(path_output, file_name), audio_sr, audio_resampled)
 
+# ## **Extract melspectogram**
+
 winL = 0.05
 frameshift = 0.01
 melSpec = extractMelSpecs(audio_resampled, 2048, windowLength=winL, frameshift=frameshift)
 
-#import eeg (gamma from preprocessing)
-gamma = np.load("gamma.npy")
+#import eeg (gammaonlystimuly from preprocessing)
+gamma = np.load("gammaonlystimuli.npy")
+
+# ## **Trim them to the same size**
 
 if melSpec.shape[0] != gamma.shape[0]:
     n_frames = min(melSpec.shape[0], gamma.shape[0])
     melSpec = melSpec[:n_frames, :]
     gamma = gamma[:n_frames, :]
 
-import matplotlib.pyplot as plt
-plt.plot(gamma[:,0])
-plt.show()
 
-plt.plot(melSpec[:,0])
-plt.show()
+
+
+
+
 
 # +
-###resample the eeg isntead
+#resample the eeg isntead
 # -
 
 gamma.shape
