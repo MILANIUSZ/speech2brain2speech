@@ -9,6 +9,7 @@ import scipy.stats
 import scipy.io.wavfile
 import scipy.fftpack
 import soundfile as sf
+import matplotlib.pyplot as plt
 
 
 import librosa
@@ -79,11 +80,36 @@ os.makedirs(os.path.join(path_output), exist_ok=True)
 
 # -
 
-# ## **Load audio**
+# ## **Load audio and eeg**
+
+#import eeg (gammaonlystimuly from preprocessing)
+gamma = np.load("gammaonlystimuli.npy")
 
 #othermethods
 from scipy import signal
 audio, sr = librosa.load('data/stimuli/6min.wav', sr=48000)
+
+
+# ## **eeg vs audio?**
+
+# +
+# get time axis for audio and EEG data
+audio_time = np.arange(len(audio)) / 48000
+gamma_time = np.arange(len(gamma)) / 2048 # 2048 Hz is the sampling frequency of the EEG data
+
+# plot audio and EEG data
+fig, ax1 = plt.subplots(figsize=(10, 5))
+ax2 = ax1.twinx()
+ax1.plot(audio_time, audio, color='blue')
+ax2.plot(gamma_time, gamma[:, 0], color='red')
+ax1.set_xlabel('Time (seconds)')
+ax1.set_ylabel('Amplitude')
+ax2.set_ylabel('EEG amplitude')
+plt.show()
+# -
+
+# ## **Resample audio**
+
 audio_resampled = signal.resample(audio, int(len(audio) / sr * 2048))
 
 file_name = 'resampled.wav'
@@ -95,10 +121,7 @@ winL = 0.05
 frameshift = 0.01
 melSpec = extractMelSpecs(audio_resampled, 2048, windowLength=winL, frameshift=frameshift)
 
-#import eeg (gammaonlystimuly from preprocessing)
-gamma = np.load("gammaonlystimuli.npy")
-
-# ## **Trim them to the same size**
+# ## **Trim them to the same size?**
 
 if melSpec.shape[0] != gamma.shape[0]:
     n_frames = min(melSpec.shape[0], gamma.shape[0])
@@ -110,6 +133,8 @@ if melSpec.shape[0] != gamma.shape[0]:
 
 
 
+
+# ## **resample the eeg isntead?**
 
 # +
 #resample the eeg isntead
@@ -180,6 +205,20 @@ axs[0].set_title('EEG')
 axs[1].imshow(melSpec48[int(start_time*48000*0.01):int(end_time*48000*0.01), :].T, origin='lower', aspect='auto', cmap='jet', interpolation='none')
 axs[1].set_title('Mel Spectrogram')
 plt.show()
+# -
+
+# ## **Messing around w cross-corr**
+
+# +
+from scipy.signal import correlate
+
+# Compute the cross-correlation
+corr = correlate(melSpec48[:, 0], gamma_resampled[:, 0], mode='full')
+
+# Find the lag at which the maximum correlation occurs
+lag = corr.argmax() - (corr.size - 1) / 2
+
+print(f"Lag: {lag}")
 
 # +
 from scipy.signal import correlate
