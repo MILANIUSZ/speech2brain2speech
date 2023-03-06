@@ -19,3 +19,6 @@ iEEG2audio_v1.py
 eeg_preprocess_data_matching.ipynb
 audio preprocess.py
 eeg_preprocess_data_matching.ipynb
+__pycache__
+.ipynb_checkpoints
+features
