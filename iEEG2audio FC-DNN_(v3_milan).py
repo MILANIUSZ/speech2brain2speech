@@ -156,7 +156,7 @@ subjects = mne_bids.get_entity_vals(bids_dir, 'subject')
 print(subjects)
 
 #Choose subjects
-subject = '07'
+subject = '55'
 acquisition = 'clinical'
 task = 'film'
 datatype = 'ieeg'
@@ -347,12 +347,12 @@ plt.show()
 model = Sequential()
 model.add(
     Dense(
-        500,
-        input_dim=495,
+        1000,
+        input_dim=846,
         kernel_initializer='normal',
         activation='relu'))
-model.add(Dense(500, kernel_initializer='normal', activation='relu'))
-model.add(Dense(500, kernel_initializer='normal', activation='relu'))
+model.add(Dense(1000, kernel_initializer='normal', activation='relu'))
+model.add(Dense(1000, kernel_initializer='normal', activation='relu'))
 model.add(Dense(500, kernel_initializer='normal', activation='relu'))
 model.add(
     Dense(
@@ -417,6 +417,9 @@ model.load_weights(model_name + '_weights_best.h5')
 # remove model file
 # os.remove(model_name + '_weights_best.h5')
 
+best_val_mse = min(history.history['val_mean_squared_error'])
+print(f'Best validation MSE: {best_val_mse:.4f}')
+
 # ### Visualize predicted melspectogram
 
 # melspec_predicted = model.predict(eeg_test_scaled[0:500])
@@ -424,20 +427,25 @@ melspec_predicted = model.predict(eeg_test_scaled[0:1000])
 # melspec_predicted = melspec_predicted[0:500]
 # test_melspec = test_melspec[]
 
+
+
 # ult_predicted = ult_predicted.reshape(-1, NumVectors, PixPerVector_resized)
 # ult_test = ult_test.reshape(-1, NumVectors, PixPerVector_resized)
 
-plt.subplot(311)
-plt.imshow(np.rot90(eeg_test_scaled[0:1000]), aspect='auto')
-plt.title('EEG Test Scaled')
+# +
 
-plt.subplot(312)
-plt.imshow(np.rot90(melspec_test_scaled[0:1000]), aspect='auto')
-plt.title('Mel-Spectrogram Test Scaled')
 
-plt.subplot(313)
-plt.imshow(np.rot90(melspec_predicted[0:1000]), aspect='auto')
-plt.title('Mel-Spectrogram Predicted')
-
-plt.savefig(model_name + '_EEG_scaled.png')
+fig, axs = plt.subplots(3, 1, figsize=(10, 10))
+axs[0].imshow(np.rot90(eeg_test_scaled[0:1000]), aspect='auto')
+axs[0].set_title('EEG Test Scaled')
+axs[1].imshow(np.rot90(melspec_test_scaled[0:1000]), aspect='auto')
+axs[1].set_title('Mel-Spectrogram Test Scaled')
+axs[2].imshow(np.rot90(melspec_predicted[0:1000]), aspect='auto')
+axs[2].set_title('Mel-Spectrogram Predicted')
+plt.subplots_adjust(hspace=0.4)
+plt.suptitle('  FC-DNN results (scaled) for '+'subject ' + subject + '  '  + f'Best validation MSE: {best_val_mse:.4f}')
+plt.savefig(model_name + '_EEG_scaled_plots.png')
 plt.show()
+# -
+
+
