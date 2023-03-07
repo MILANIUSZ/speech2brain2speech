@@ -156,7 +156,7 @@ subjects = mne_bids.get_entity_vals(bids_dir, 'subject')
 print(subjects)
 
 #Choose subjects
-subject = '55'
+subject = '43'
 acquisition = 'clinical'
 task = 'film'
 datatype = 'ieeg'
@@ -348,12 +348,12 @@ model = Sequential()
 model.add(
     Dense(
         1000,
-        input_dim=846,
+        input_dim=eeg_train_scaled.shape[1],
         kernel_initializer='normal',
         activation='relu'))
 model.add(Dense(1000, kernel_initializer='normal', activation='relu'))
 model.add(Dense(1000, kernel_initializer='normal', activation='relu'))
-model.add(Dense(500, kernel_initializer='normal', activation='relu'))
+model.add(Dense(1000, kernel_initializer='normal', activation='relu'))
 model.add(
     Dense(
         80,
@@ -368,11 +368,11 @@ model.compile(
 earlystopper = EarlyStopping(
     monitor='val_mean_squared_error',
     min_delta=0.0001,
-    patience=15,
+    patience=20,
     verbose=1,
     mode='auto')
 
-print(model.summary())
+    print(model.summary())
 
 if not (os.path.isdir('models_iEEG_to_melspec/')):
     os.mkdir('models_iEEG_to_melspec/')
@@ -405,7 +405,7 @@ with open(model_name + '_model.json', "w") as json_file:
 # ### Run training
 
 history = model.fit(eeg_train_scaled, melspec_train_scaled,
-                    epochs=1000, batch_size=64, shuffle=True, verbose=1,
+                    epochs=1000, batch_size=128, shuffle=True, verbose=1,
                     callbacks=[earlystopper, logger, checkp],
                     validation_split = 0.1,
                     validation_data=(eeg_valid_scaled, melspec_valid_scaled),
@@ -426,8 +426,6 @@ print(f'Best validation MSE: {best_val_mse:.4f}')
 melspec_predicted = model.predict(eeg_test_scaled[0:1000])
 # melspec_predicted = melspec_predicted[0:500]
 # test_melspec = test_melspec[]
-
-
 
 # ult_predicted = ult_predicted.reshape(-1, NumVectors, PixPerVector_resized)
 # ult_test = ult_test.reshape(-1, NumVectors, PixPerVector_resized)
