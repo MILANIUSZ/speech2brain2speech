@@ -432,9 +432,6 @@ melspec_predicted = model.predict(eeg_test_scaled[0:1000])
 # ult_predicted = ult_predicted.reshape(-1, NumVectors, PixPerVector_resized)
 # ult_test = ult_test.reshape(-1, NumVectors, PixPerVector_resized)
 
-# +
-
-
 fig, axs = plt.subplots(3, 1, figsize=(10, 10))
 axs[0].imshow(np.rot90(eeg_test_scaled[0:1000]), aspect='auto')
 axs[0].set_title('EEG Test Scaled')
@@ -446,6 +443,5 @@ plt.subplots_adjust(hspace=0.4)
 plt.suptitle('  FC-DNN results (scaled) for '+'subject ' + subject + '  '  + f'Best validation MSE: {best_val_mse:.4f}')
 plt.savefig(model_name + '_EEG_scaled_plots.png')
 plt.show()
-# -
 
 
