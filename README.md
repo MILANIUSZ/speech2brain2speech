@@ -1,4 +1,4 @@
-## Realistic-Speech-Decoding: speech2brain2speech
+## Towards Naturalistic BCI: Applying Deep Learning to Decode Brain Activity During Passive Listening to Speech
 Milan Andras Fodor
 Thesis work
 
