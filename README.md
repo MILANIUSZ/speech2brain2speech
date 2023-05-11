@@ -1,12 +1,8 @@
-## Towards Naturalistic BCI: Applying Deep Learning to Decode Brain Activity During Passive Listening to Speech
+## Towards Naturalistic BCI: Leveraging Deep Learning to Decode Brain Activity During Passive Listening
 Milan Andras Fodor
-Thesis work
+Master’s Thesis
 
-The study explores the possibility of decoding listened speech and audio from intracranial EEG (iEEG) recordings of the brain using deep learning models. We used the 'Open multimodal iEEG-fMRI dataset' in which participants watched a movie while their iEEG data was recorded. We proposed a sliding window approach to extract high gamma features, which was fed into various deep neural networks (FC-DNN and CNN). The target of the DNNs was the mel-spectrogram of the movie audio. The model was trained, validated, and tested on iEEG data and corresponding mel-spectrograms. Although the synthesised speech using WaveGlow neural vocoder was not intelligible yet, the DNNs could generate audio where the speech and silent segments are separable. This study is unique in that it focuses on synthesising speech that was listened to by the participant rather than spoken by the subject. This approach might take us closer to a BCI system and might help to understand the cognitive aspects of speech.
-
-# *Listened speech decoding from intracarnial signals*
-
-The aim of this work is to reconstruct the speech that was heard by an individual in a real world scenario, with the use of intracarnial data and deep learning methods.
+The aim of this thesis is to make advancements in the field of speech synthesis, which is important for assisting individuals with disabilities, shaping future communication, and improving our understanding of cognitive speech processing. The most suitable approach for achieving this goal involves decoding heard speech from neural activity recorded during passive listening using intracranial electroencephalography (iEEG). The results indicate the existence of specific neural representations of heard speech that are similar to those of spoken speech, providing a clear step towards demonstrating that decoding heard speech is ultimately possible with more precise sampling methods.
 
 
 *Dataset:*  https://www.nature.com/articles/s41597-022-01173-0  
@@ -17,4 +13,3 @@ download: https://openneuro.org/datasets/ds003688/versions/1.0.7/download
 https://thegeeksdiary.com/2023/01/29/how-to-setup-tensorflow-with-gpu-support-using-docker/
 
 
-Libary list:
