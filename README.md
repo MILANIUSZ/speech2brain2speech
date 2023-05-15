@@ -12,4 +12,4 @@ download: https://openneuro.org/datasets/ds003688/versions/1.0.7/download
 *Environment:*  Docker - public: thegeeksdiary/tensorflow-jupyter-gpu  
 https://thegeeksdiary.com/2023/01/29/how-to-setup-tensorflow-with-gpu-support-using-docker/
 
-
+https://www.overleaf.com/read/shgpsztcstgt
