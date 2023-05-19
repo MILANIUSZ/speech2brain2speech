@@ -5,7 +5,7 @@ Master’s Thesis
 The aim of this thesis is to make advancements in the field of speech synthesis, which is important for assisting individuals with disabilities, shaping future communication, and improving our understanding of cognitive speech processing. The most suitable approach for achieving this goal involves decoding heard speech from neural activity recorded during passive listening using intracranial electroencephalography (iEEG). The results indicate the existence of specific neural representations of heard speech that are similar to those of spoken speech, providing a clear step towards demonstrating that decoding heard speech is ultimately possible with more precise sampling methods.
 
 Find trainig with
-FC-DNN model in: speech2brain2speech_FC-DNN.ipynb
+FC-DNN model in: speech2brain2speech_FC-DNN.ipynb <br>
 2D-CNN model in: speech2brain2speech_2D-CNN.ipynb
 
 
