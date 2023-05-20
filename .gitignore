@@ -1,4 +1,6 @@
-
+models_iEEG_to_melspec
+iEEG2audio FC-DNN_(v3_milan).py
+iEEG2audio_sub01_v2_og.py
 ieeg-fmri-dataset-quickstart-main/requirements
 ieeg-fmri-dataset-quickstart-main/ieeg_quickstart/python/visualize_coverage.ipynb
 data/
@@ -22,3 +24,28 @@ eeg_preprocess_data_matching.ipynb
 __pycache__
 .ipynb_checkpoints
 features
+*.h5
+*.json
+*.png
+*.csv
+results_2D-CNN/43_predicted_spec.npy
+results_2D-CNN/33_predicted_spec.npy
+results_2D-CNN/55_predicted_spec.npy
+results_2D-CNN/60_predicted_spec.npy
+results_Fc-DNN/43_predicted_spec.npy
+raw_car_cut.npy
+predicted_audio_fc-DNN.wav
+predicted_audio.wav
+predicted_audio_fc-DNN.wav
+predicted_audio_fc-DNN.wav
+gamma.tsv
+iEEG2audio 2D-CNN_v1.py
+iEEG2audio FC-DNN+2D_CNN_(v4_milan).ipynb
+iEEG2audio FC-DNN_(v3_milan).py
+waveglow_models/waveglow_256channels_universal_v5.pt
+shifted_audio.wav
+iEEG2audio FC-DNN_(v3_milan).py
+iEEG2audio FC-DNN+2D_CNN_(v4_milan).ipynb
+(final) BRAIN2THESIS_MILAN_ANDRAS_FODOR.docx
+iEEG2audio FC-DNN+2D_CNN_(v4_milan).ipynb
+reconstructWave.py
