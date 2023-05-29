@@ -1,8 +1,8 @@
-## Towards Naturalistic BCI: Leveraging Deep Learning to Decode Brain Activity During Passive Listening
+# Towards Naturalistic BCI: Leveraging Deep Learning to Decode Brain Activity During Passive Listening
 Milan Andras Fodor
 Master’s Thesis
 
-# Abstract
+### Abstract
 
 The aim of the study is to investigate the complex mechanisms of speech perception and ultimately decode the electrical changes in the brain to produce speech.
 
