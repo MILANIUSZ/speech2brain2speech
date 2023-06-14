@@ -22,7 +22,7 @@ FC-DNN model in: speech2brain2speech_FC-DNN.ipynb <br>
 
 
 *Dataset:*  https://www.nature.com/articles/s41597-022-01173-0  
-download: https://openneuro.org/datasets/ds003688/versions/1.0.7/download  
+Download: https://openneuro.org/datasets/ds003688/versions/1.0.7/download  
 
 
 *Environment:*  Docker - public: thegeeksdiary/tensorflow-jupyter-gpu  
